@@ -9,11 +9,11 @@ WebXR implements a subset of OpenXR, visible to a browser.
 
 Create an app so that Apple Vision Pro and other browser and device users can see it.
 
-This domain ``v-d-d.com`` is in AWS Route53 with NS and SOA records only (main account, not
-Organization). See the GDoc on its creation. Create a host record (A, Alias,
-etc) to “webxr-demo” under that to something which hosts the app -- an APIGW or
-Function URL to Lambda, or an S3 bucket configured as a website, or maybe an
-external GitHub Pages location.
+This domain ``v-d-d.com`` is in AWS Route53 with NS and SOA records only (main
+account, not Organization). See the GDoc on its creation. Create a host record
+(A, Alias, etc) to “webxr-demo” under that to something which hosts the app --
+an APIGW or Function URL to Lambda, or an S3 bucket configured as a website, or
+maybe an external GitHub Pages location.
 
 Demoing remotely
 ================
@@ -54,7 +54,7 @@ Virtual Reality (OSVR), in a web browser.
 * `WebXR Demo <https://modelviewer.dev/examples/augmentedreality/>`_ with chair,
   canoe, ...
 * `Mozilla Development Network
-  <https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/Building_up_a_basic_demo_with_A-Frame>`
+  <https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/Building_up_a_basic_demo_with_A-Frame>`_
 * `4-hour livestream documentation
   <https://medium.com/samsung-internet-dev/making-an-ar-game-with-aframe-529e03ae90cb>`_
   mentioning making the sky transparent for AR devices 
@@ -70,20 +70,20 @@ Virtual Reality (OSVR), in a web browser.
 Starting with A-Frame
 =====================
 
-`A-Frame <https://aframe.io/>` is higher level than raw JS or ``three.js`` and this should make it
-faster to develop with than those or gaming platforms like Unity or Unreal Engine.
+`A-Frame <https://aframe.io/>`_ is higher level than raw JS or ``three.js`` and
+this should make it faster to develop with than those or gaming platforms like
+Unity or Unreal Engine.
 
 A-Frame is a web framework for building virtual reality experiences. It is built
 on top of HTML and provides an easy way to create 3D scenes that can be viewed
-in VR devices.
-A-Frame is an open-source project maintained by Mozilla and has a large
-community of contributors.
-A-Frame uses a declarative syntax, which means that you can create 3D scenes
-using HTML-like tags. This makes it easy to get started with VR development,
-even if you are not familiar with JavaScript or 3D graphics programming.
-A-Frame is designed to be compatible with a wide range of VR devices, including
-the HTC Vive, Oculus Rift, Meta Quest, Google Cardboard, HoloLens, Apple Vision Pro,
-Android XR-based devices, Magic Leap, and Open Source Virtual Reality (OSVR).   
+in VR devices. A-Frame is an open-source project maintained by Mozilla and has a
+large community of contributors. A-Frame uses a declarative syntax, which means
+that you can create 3D scenes using HTML-like tags. This makes it easy to get
+started with VR development, even if you are not familiar with JavaScript or 3D
+graphics programming. A-Frame is designed to be compatible with a wide range of
+VR devices, including the HTC Vive, Oculus Rift, Meta Quest, Google Cardboard,
+HoloLens, Apple Vision Pro, Android XR-based devices, Magic Leap, and Open
+Source Virtual Reality (OSVR).   
 
 A-Frame also supports a wide range of web browsers, including Chrome, Firefox,
 Safari, and Edge. This means that you can create VR experiences that can be
