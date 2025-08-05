@@ -34,7 +34,8 @@ and it will give us an HTTPS URL as well as a QR code we can scan with a phone.
 Hosting
 =======
 
-Perhaps we can host it on GitHub Pages as it supports HTTPS.
+We can host it on GitHub Pages as it supports HTTPS; done now, see below. I've not set an AWS
+Route53 CNAME for it yet. 
 
 Amazon S3 is obvious but it only serves HTTP, and we'd need HTTPS for Android
 WebXR to interact with the device sensors. We could add CloudFront to get HTTPS.
@@ -104,3 +105,9 @@ Serve the index.html locally with HTTP on port 9000::
 Serve that to the world, with HTTPS, using an external proxy service::
 
   ssh -R 80:localhost:9000 localhost.run
+
+I've made the repo public so I can enable GitHub Pages to serve this content when it's pushed to
+``index.html`` in the ``main`` branch. See it at::
+
+  https://v-studios.github.io/webxr-demo/
+
