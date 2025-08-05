@@ -64,8 +64,12 @@ Virtual Reality (OSVR), in a web browser.
 * An `interactive game
   <https://medium.com/@mattnutsch/tutorial-how-to-make-webxr-games-with-a-frame-eedd98613a88>`_
   is more involved
-* `A-Frame's own documentation <https://aframe.io/docs/1.7.0/introduction/vr-headsets-and-webxr-browsers.html>`_
-
+* `A-Frame's own documentation
+  <https://aframe.io/docs/1.7.0/introduction/vr-headsets-and-webxr-browsers.html>`_
+* `A-Frame Examples <https://stemkoski.github.io/A-Frame-Examples/>`_ with textures and other
+  features
+* `Gentle introduction to A-Frame <https://codehs.com/documentation/aframe>`_
+  as part of a larger document-everything site
 
 Starting with A-Frame
 =====================
@@ -90,3 +94,13 @@ Safari, and Edge. This means that you can create VR experiences that can be
 viewed on a wide range of devices, including desktop computers, laptops,
 tablets, and smartphones.
 
+Run Locally and Remotely with HTTPS
+====================================
+
+Serve the index.html locally with HTTP on port 9000::
+
+  python -m http.server 9000
+
+Serve that to the world, with HTTPS, using an external proxy service::
+
+  ssh -R 80:localhost:9000 localhost.run
