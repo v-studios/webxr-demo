@@ -111,3 +111,9 @@ I've made the repo public so I can enable GitHub Pages to serve this content whe
 
   https://v-studios.github.io/webxr-demo/
 
+If you upload your SSH public key, you can auth with user ``plan`` which gives
+you a longer duration. For custom domains, you need to subscribe.
+
+The A-Frame docs suggest using Glitch to explore but it shutdown 2025-07-08, and
+they suggest `CodePen <https://codepen.io/mozillavr/pen/BjygdO>`_ as a
+replacement -- and this even supports HTTPS.
