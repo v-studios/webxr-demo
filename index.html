@@ -1,24 +1,41 @@
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
- </head>
-  <body>
-    <a-scene>
-      <assets>
-        <img id="sky" src="https://cdn.aframe.io/a-painter/images/sky.jpg" crossorigin="anonymous"/>
-      </assets>
 
-      <a-sky src="#sky"></a-sky> <!-- rendering Black but src is pulled ok-->
+<head>
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+</head>
 
-      <a-sphere position="-3 1.25 -5" radius="1" color="#EF2D5E"></a-sphere>
-      <a-box position="-2 0.5 -3" rotation="0 45 0" width="1" height="1" depth="1" color="#4CC3D9"></a-box>
-      <a-cylinder position="2 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="8" height="8" color="#7BC8A4"></a-plane>
+<body>
+  <a-scene>
 
-      <!-- V! Studios cone-dot logo -->
-      <a-cone position="0 3 -3" color="orange" radius-bottom="0" radius-top="1" height="2.5"></a-cone>
-      <a-sphere position="0 1 -3" color="orange" radius="0.2s5"></a-sphere>
-   </a-scene>
+    <a-assets>
+      <!-- Search "sky equirectangular" -->
+      <img id="sky-dark" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+      <img id="sky-intense"
+        src="https://t4.ftcdn.net/jpg/03/95/11/27/360_F_395112795_tvAB4fsoEDerZXF7PZBiSBXrjxcGDoow.jpg">
+      <img id="sky-space"
+        src="https://cdn.sci.esa.int/documents/33580/35361/1567215018395-ESA_Gaia_DR2_AllSky_Brightness_Colour_Cartesian_625.jpg">
 
-  </body>
+        <img id="spots"
+        src="https://cdn.sci.esa.int/documents/34222/35279/1567213931865-ESA_Planck_CMB2018_equirectangular_625.jpg">
+      <img id="grid" src="http://www.paulbourke.net/geometry/sphericaltile/scheme1b.jpg"> <!-- requires CORS -->
+    </a-assets>
+
+
+    <a-sky src="#sky-space"></a-sky>
+
+    <!-- V! Studios cone-dot logo -->
+    <a-cone position="0 3 -3" color="orange" radius-bottom="0" radius-top="1" height="2.5"></a-cone>
+    <a-sphere position="0 1 -3" color="orange" radius="0.2s5"></a-sphere>
+
+    <!-- other furniture -->
+    <a-sphere position="-3 1.25 -5" radius="1" color="#EF2D5E"></a-sphere>
+    <a-box position="-2 0.5 -3" rotation="0 45 0" width="1" height="1" depth="1" color="#4CC3D9"></a-box>
+    <a-cylinder position="2 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="8" height="8" src="#spots" color="#7BC8A4"></a-plane>
+
+  </a-scene>
+
+
+</body>
+
 </html>
