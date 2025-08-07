@@ -2,8 +2,8 @@
  WebXR Hello World Demo
 ========================
 
-Card Requirements from VISTA-44
-===============================
+Requirements from Card
+======================
 
 WebXR implements a subset of OpenXR, visible to a browser.
 
@@ -15,42 +15,17 @@ account, not Organization). See the GDoc on its creation. Create a host record
 an APIGW or Function URL to Lambda, or an S3 bucket configured as a website, or
 maybe an external GitHub Pages location.
 
-Demoing remotely
-================
-
-We can run a Python web server to serve it locally via HTTP for our laptop web
-browser. But for remote users, and for Android WebXR, we need HTTPS.  
-
-Ngrok used to be good but it's gotten bloated and requires signup and
-authentication token; not hard, just annoying.
-
-Service ``localhost.run`` is trivial to use with a simple ssh tunnel command. If
-our local server is running on port 9000, we can run::
-
-    ssh -R 80:localhost:9000 ssh.localhost.run
-
-and it will give us an HTTPS URL as well as a QR code we can scan with a phone.
-
-Hosting
-=======
-
-We can host it on GitHub Pages as it supports HTTPS; done now, see below. I've not set an AWS
-Route53 CNAME for it yet. 
-
-Amazon S3 is obvious but it only serves HTTP, and we'd need HTTPS for Android
-WebXR to interact with the device sensors. We could add CloudFront to get HTTPS.
-But I'd really like to get out of the infrastructure business.
 
 Background Reading
 ==================
 
 “XR” is used to show the combination of VR and AR, virtual and augmented reality.
 
-WebXR: WebXR Device API is a Web application programming interface (API)[1][2]
-that describes support for accessing augmented reality and virtual reality
-devices, such as the HTC Vive, Oculus Rift, Meta Quest, Google Cardboard,
-HoloLens, Apple Vision Pro, Android XR-based devices, Magic Leap or Open Source
-Virtual Reality (OSVR), in a web browser.
+WebXR is a Web application programming interface] that describes support for
+accessing augmented reality and virtual reality devices, such as the HTC Vive,
+Oculus Rift, Meta Quest, Google Cardboard, HoloLens, Apple Vision Pro, Android
+XR-based devices, Magic Leap or Open Source Virtual Reality (OSVR), in a web
+browser.
 
 * `WebXR Demo <https://modelviewer.dev/examples/augmentedreality/>`_ with chair,
   canoe, ...
@@ -72,8 +47,8 @@ Virtual Reality (OSVR), in a web browser.
 * `Gentle introduction to A-Frame <https://codehs.com/documentation/aframe>`_
   as part of a larger document-everything site
 
-Starting with A-Frame
-=====================
+Choosing A-Frame
+----------------
 
 `A-Frame <https://aframe.io/>`_ is higher level than raw JS or ``three.js`` and
 this should make it faster to develop with than those or gaming platforms like
@@ -95,25 +70,51 @@ Safari, and Edge. This means that you can create VR experiences that can be
 viewed on a wide range of devices, including desktop computers, laptops,
 tablets, and smartphones.
 
-Run Locally and Remotely with HTTPS
-====================================
 
-Serve the index.html locally with HTTP on port 9000::
+Demoing
+=======
+
+Developing, Testing Locally
+---------------------------
+
+The A-Frame site recommenends using Glitch but it was shutdown in July. Instead,
+use `CodePen <https://codepen.io>`_. This is handy for testing new ideas and can
+be shown to others; it supports HTTPS so remote VR viewers can access it.
+
+You can run a local python HTTPserver so you can see edits to your code files
+quickly. Serve the ``index.html`` locally with HTTP on port 9000::
 
   python -m http.server 9000
+ 
+Demoing remotely
+----------------
 
-Serve that to the world, with HTTPS, using an external proxy service::
+Ngrok used to be good but it's gotten bloated and requires signup and
+authentication token; not hard, just annoying.
+
+Service ``localhost.run`` is trivial to use with a simple ssh tunnel command. If
+our local server is running on port 9000, we can run::
 
   ssh -R 80:localhost:9000 localhost.run
 
-I've made the repo public so I can enable GitHub Pages to serve this content when it's pushed to
-``index.html`` in the ``main`` branch. See it at::
-
-  https://v-studios.github.io/webxr-demo/
+and it will give us an HTTPS URL as well as a QR code we can scan with a phone.
 
 If you upload your SSH public key, you can auth with user ``plan`` which gives
 you a longer duration. For custom domains, you need to subscribe.
 
-The A-Frame docs suggest using Glitch to explore but it shutdown 2025-07-08, and
-they suggest `CodePen <https://codepen.io/mozillavr/pen/BjygdO>`_ as a
-replacement -- and this even supports HTTPS.
+  ssh -R 80:localhost:9000 plan@localhost.run
+
+Hosting
+-------
+
+We can host it on GitHub Pages as it supports HTTPS. GH Pages requires the repo
+to be made public, which is fine -- no secrets here! I've configured it to use
+the ``main`` branch with ``index.html``. See it at::
+
+  https://v-studios.github.io/webxr-demo/
+
+I've not set an AWS Route53 CNAME for it yet. 
+
+Amazon S3 is obvious but it only serves HTTP, and we'd need HTTPS for Android
+WebXR to interact with the device sensors. We could add CloudFront to get HTTPS.
+But I'd really like to get out of the infrastructure business.
