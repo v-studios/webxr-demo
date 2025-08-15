@@ -1,110 +1,123 @@
 <html>
 
 <head>
-  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 </head>
 
 <body>
-  <a-scene>
+     <a-scene>
 
-    <a-assets>
-      <!-- requires CORS -->
-      <!-- Search "sky equirectangular" -->
-      <img id="sky-dark"
-           src="https://cdn.aframe.io/a-painter/images/sky.jpg">
-      <img id="sky-intense"
-           src="https://t4.ftcdn.net/jpg/03/95/11/27/360_F_395112795_tvAB4fsoEDerZXF7PZBiSBXrjxcGDoow.jpg">
-      <img id="sky-space"
-           src="https://cdn.sci.esa.int/documents/33580/35361/1567215018395-ESA_Gaia_DR2_AllSky_Brightness_Colour_Cartesian_625.jpg">
+          <a-assets>
+               <!-- requires CORS -->
+               <!-- Search "sky equirectangular" -->
+               <img id="sky-intense"
+                    src="https://t4.ftcdn.net/jpg/03/95/11/27/360_F_395112795_tvAB4fsoEDerZXF7PZBiSBXrjxcGDoow.jpg"
+                    crossorigin="anonymous">
+               <img id="sky-space"
+                    src="https://cdn.sci.esa.int/documents/33580/35361/1567215018395-ESA_Gaia_DR2_AllSky_Brightness_Colour_Cartesian_625.jpg"
+                    crossorigin="anonymous">
+               <img id="spots"
+                    src="https://cdn.sci.esa.int/documents/34222/35279/1567213931865-ESA_Planck_CMB2018_equirectangular_625.jpg"
+                    crossorigin="anonymous">
+               <img id="tiles"
+                    src="equirectangular-tiles.jpg"
+                    crossorigin="anonymous">
+               <img id="boxTexture"
+                    src="https://i.imgur.com/mYmmbrp.jpg"
+                    crossorigin="anonymous">
+               <img id="earth"
+                    src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/space/earth_atmos_4096.jpg"
+                    crossorigin="anonymous">
+               <audio id="backgroundnoise"
+                      src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav"
+                      crossorigin="anonymous"></audio>
+          </a-assets>
 
-      <img id="spots"
-           src="https://cdn.sci.esa.int/documents/34222/35279/1567213931865-ESA_Planck_CMB2018_equirectangular_625.jpg">
-      <img id="tiles"
-           src="equirectangular-tiles.jpg">
+          <a-text position="-3 3.5 -3"
+                    scale="0.5 0.5 0.5"
+                  color="green"
+                  align="left"
+                  value="Use WASD keys to move, cursor or tilt/roll to look around. Center magenta gaze or click to interact with the  sphere and TMA-1 monolith."></a-text>
 
-      <img id="boxTexture"
-           src="https://i.imgur.com/mYmmbrp.jpg">
+          <a-camera look-controls
+                    wasd-controls
+                    mouse-cursor
+                    cursor="rayOrigin:mouse;">
+               <a-cursor fuse="true"
+                         fuseTimeout="500"
+                         raycaster="objects: .clickable"
+                         X-rayOrigin="mouse"
+                         position="0 0 -1"
+                         geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.04"
+                         color="magenta"
+                         animation__click="startEvents: click; property: scale; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
+                         animation__fusing="startEvents: fusing; property: scale;  easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
+                         animation__mouseleave="startEvents: mouseleave; property: scale; easing: easeInCubic; dur: 500; to: 1 1 1">
+               </a-cursor>
+          </a-camera>
 
-      <img id="earth"
-           src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/space/earth_atmos_4096.jpg">
-    </a-assets>
+          <a-sky src="#sky-space"></a-sky>
+          <a-plane position="0 0 -5"
+                   rotation="-90 0 0"
+                   width="16"
+                   height="16"
+                   src="#tiles"
+                   color="#888"></a-plane>
 
-    <a-camera look-controls
-              wasd-controls
-              mouse-cursor
-              cursor="rayOrigin:mouse;">
-      <a-cursor fuse="true"
-                fuseTimeout="500"
-                raycaster="objects: .clickable"
-                X-rayOrigin="mouse"
-                position="0 0 -1"
-                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.04"
-                color="magenta"
-                animation__click="startEvents: click; property: scale; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-                animation__fusing="startEvents: fusing; property: scale;  easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
-                animation__mouseleave="startEvents: mouseleave; property: scale; easing: easeInCubic; dur: 500; to: 1 1 1">
-      </a-cursor>
-    </a-camera>
+          <!-- V! Studios cone-dot logo -->
+          <a-cone position="0 2 -4"
+                  color="orange"
+                  radius-bottom="0"
+                  radius-top="1"
+                  height="2.5"></a-cone>
+          <a-sphere class="clickable"
+                    position="0 0.25 -4"
+                    color="orange"
+                    radius="0.25"
+                    animation__mouseenter="startEvents: fusing; property: material.color: red"
+                    animation__mouseleave_orange="startEvents: mouseleave; property: material.color: orange">
+          </a-sphere>
 
-    <a-sky src="#sky-space"></a-sky>
-    <a-plane position="0 0 -5"
-             rotation="-90 0 0"
-             width="16"
-             height="16"
-             src="#tiles"
-             color="#888"></a-plane>
+          <!-- other furniture: 2 cylinders in front, 2 boxes in back -->
+          <a-box position="-2 0.5 -3"
+                 rotation="0 -30 0"
+                 width="1"
+                 height="1"
+                 depth="1"
+                 color="#4c9"></a-box>
+          <a-box position="+2 0.5 -3"
+                 rotation="0 +30 0"
+                 width="1"
+                 height="1"
+                 depth="1"
+                 color="#4c9"></a-box>
+          <a-cylinder position="-2 0.75 -5"
+                      radius="0.5"
+                      height="1.5"
+                      color="#F88"></a-cylinder>
+          <a-cylinder position="2 0.75 -5"
+                      radius="0.5"
+                      height="1.5"
+                      color="#F88"></a-cylinder>
+          <a-sound position="2 4.5 -10"
+                   src="#backgroundnoise"
+                   loop="true"
+                   autoplay="true"></a-sound>
+          <a-box id="tma-1"
+                 class="clickable"
+                 position="2 4.5 -10"
+                 rotation="0 30 0"
+                 scale="1 9 4"
+                 material="color: black"
+                 src="#boxTexture"
+                 animation__mouseenter_bigger="startEvents: mouseenter; property: scale; to: 1.2 10.8 4.8; dur: 1000;"
+                 animation__mouseenter_gray="startEvents: mouseenter; property: material.color: gray;"
+                 animation__mouseleave_resize="startEvents: mouseleave; property: scale; to: 1 9 4; dur: 1000"
+                 animation__mouseleave_black="startEvents: mouseleave; property: material.color:black"
+                 animation__click="startEvents: click; property: rotation; from: 0 30 0; to: 0 270 0; dir: alternate; dur: 1000">
+          </a-box>
 
-    <!-- V! Studios cone-dot logo -->
-    <a-cone position="0 2 -4"
-            color="orange"
-            radius-bottom="0"
-            radius-top="1"
-            height="2.5"></a-cone>
-    <a-sphere class="clickable"
-              position="0 0.25 -4"
-              color="orange"
-              radius="0.25"
-              animation__mouseenter="startEvents: fusing; property: material.color: red"
-              animation__mouseleave_orange="startEvents: mouseleave; property: material.color: orange">
-
-    </a-sphere>
-
-    <!-- other furniture: 2 cylinders in front, 2 boxes in back -->
-    <a-box position="-2 0.5 -3"
-           rotation="0 -30 0"
-           width="1"
-           height="1"
-           depth="1"
-           color="#4c9"></a-box>
-    <a-box position="+2 0.5 -3"
-           rotation="0 +30 0"
-           width="1"
-           height="1"
-           depth="1"
-           color="#4c9"></a-box>
-    <a-cylinder position="-2 0.75 -5"
-                radius="0.5"
-                height="1.5"
-                color="#F88"></a-cylinder>
-    <a-cylinder position="2 0.75 -5"
-                radius="0.5"
-                height="1.5"
-                color="#F88"></a-cylinder>
-
-    <a-box id="tma-1"
-           class="clickable"
-           position="2 4.5 -10"
-           rotation="0 30 0"
-           scale="1 9 4"
-           material="color: black"
-           src="#boxTexture"
-           animation__mouseenter_bigger="startEvents: mouseenter; property: scale; to: 1.2 10.8 4.8; dur: 1000;"
-           animation__mouseenter_gray="startEvents: mouseenter; property: material.color: gray;"
-           animation__mouseleave_resize="startEvents: mouseleave; property: scale; to: 1 9 4; dur: 1000"
-           animation__mouseleave_black="startEvents: mouseleave; property: material.color:black"
-           animation__click="startEvents: click; property: rotation; from: 0 30 0; to: 0 270 0; dir: alternate; dur: 1000">
-    </a-box>
-  </a-scene>
+     </a-scene>
 
 
 </body>

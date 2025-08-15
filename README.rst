@@ -130,3 +130,19 @@ Events
 <https://aframe.io/docs/1.7.0/guides/building-a-basic-scene.html#animating-on-events>`_
 ws helpful. I had to do some looking around to see how to invoke the "fuse"
 (stare a while) and also the browser's mouse click event. 
+
+Sound -- not working
+====================
+
+I tried to follow the docs on `Adding Audio
+<https://aframe.io/docs/1.7.0/guides/building-a-basic-scene.html#adding-audio>`_.
+I wanted the TMA-1 monolith to emit a sound that got louder as you got closer.
+Unforunately, it didn't work, and this appears to be because browsers block
+"autoplay" in the interest of user experience::
+
+  The AudioContext was not allowed to start. It must be resumed (or created)
+  after a user ƒgesture on the page. 
+  https://developer.chrome.com/blog/autoplay/#web_audio
+
+I don't have a work-around yet. 
+  
