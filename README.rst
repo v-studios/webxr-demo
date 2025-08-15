@@ -118,3 +118,15 @@ I've not set an AWS Route53 CNAME for it yet.
 Amazon S3 is obvious but it only serves HTTP, and we'd need HTTPS for Android
 WebXR to interact with the device sensors. We could add CloudFront to get HTTPS.
 But I'd really like to get out of the infrastructure business.
+
+Interaction
+===========
+
+I want to be able to interact with objects, even on a web page. This `simple
+demo with 4 objects is fine <https://codepen.io/Absulit/pen/WEKjqm>`_, but its
+a-frame version is 0.6.1 (see HTML Settings Header) -- 8 years. If I change it
+to the current 1.7.1, it breaks the demo. The documentation on `Animating on
+Events
+<https://aframe.io/docs/1.7.0/guides/building-a-basic-scene.html#animating-on-events>`_
+ws helpful. I had to do some looking around to see how to invoke the "fuse"
+(stare a while) and also the browser's mouse click event. 
