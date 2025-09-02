@@ -1,0 +1,8 @@
+# For VSCode Esbonio RST preview
+[tool.esbonio.sphinx]
+pythonCommand = [
+    "uv", "run",
+    "--no-project",
+    "--with", "sphinx",
+    "python"
+]

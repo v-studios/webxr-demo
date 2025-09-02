@@ -2,12 +2,18 @@
  WebXR Hello World Demo
 ========================
 
+TL;DR: I used A-Frame to create a scene with some objects, two of which can be
+interacted with. It's hosted on GitHub Pages with custom domain
+https://webxr-demo.v-v-d.com. 
+
+
 Requirements from Card
 ======================
 
 WebXR implements a subset of OpenXR, visible to a browser.
 
-Create an app so that Apple Vision Pro and other browser and device users can see it.
+Create an app so that Apple Vision Pro and other browser and device users can
+see it.
 
 This domain ``v-d-d.com`` is in AWS Route53 with NS and SOA records only (main
 account, not Organization). See the GDoc on its creation. Create a host record
@@ -19,9 +25,10 @@ maybe an external GitHub Pages location.
 Background Reading
 ==================
 
-“XR” is used to show the combination of VR and AR, virtual and augmented reality.
+“XR” is used to indicate the combination of VR and AR, virtual and augmented
+reality.
 
-WebXR is a Web application programming interface] that describes support for
+WebXR is a Web application programming interface that describes support for
 accessing augmented reality and virtual reality devices, such as the HTC Vive,
 Oculus Rift, Meta Quest, Google Cardboard, HoloLens, Apple Vision Pro, Android
 XR-based devices, Magic Leap or Open Source Virtual Reality (OSVR), in a web
@@ -77,15 +84,17 @@ Demoing
 Developing, Testing Locally
 ---------------------------
 
-The A-Frame site recommenends using Glitch but it was shutdown in July. Instead,
+The A-Frame site recommends using Glitch but it was shutdown in July. Instead,
 use `CodePen <https://codepen.io>`_. This is handy for testing new ideas and can
 be shown to others; it supports HTTPS so remote VR viewers can access it.
+JSFiddle can also do this, see `this example
+<https://jsfiddle.net/pbl808HS/pLkbkv8b/>`_.
 
 You can run a local python HTTPserver so you can see edits to your code files
 quickly. Serve the ``index.html`` locally with HTTP on port 9000::
 
   python -m http.server 9000
- 
+
 Demoing remotely
 ----------------
 
@@ -107,17 +116,29 @@ you a longer duration. For custom domains, you need to subscribe.
 Hosting
 -------
 
+Amazon S3 is obvious but it only serves HTTP, and we'd need HTTPS for Android
+WebXR to interact with the device sensors. We could add CloudFront to get HTTPS.
+But I'd really like to get out of the infrastructure business.
+
 We can host it on GitHub Pages as it supports HTTPS. GH Pages requires the repo
 to be made public, which is fine -- no secrets here! I've configured it to use
 the ``main`` branch with ``index.html``. See it at::
 
   https://v-studios.github.io/webxr-demo/
 
-I've not set an AWS Route53 CNAME for it yet. 
+To make the DNS name work, I *manually* created a ``CNAME`` record in AWS
+Route53::
 
-Amazon S3 is obvious but it only serves HTTP, and we'd need HTTPS for Android
-WebXR to interact with the device sensors. We could add CloudFront to get HTTPS.
-But I'd really like to get out of the infrastructure business.
+  webxr-demo.v-v-d.com CNAME v-studios.github.io
+
+In GitHub Pages (https://github.com/v-studios/webxr-demo/settings/pages), I set
+the Custom domain to be webxr-demo.v-v-d.com. After hitting Save, GH verified
+the DNS name and made it live. Now we can point our browser to::
+
+  https://webxr-demo.v-v-d.com/
+
+Going to the original ``github.io`` URL now redirects to this custom domain.
+
 
 Interaction
 ===========
@@ -131,18 +152,46 @@ Events
 ws helpful. I had to do some looking around to see how to invoke the "fuse"
 (stare a while) and also the browser's mouse click event. 
 
+I've created a scene with two cubes, two cylinders, our orange V! Studios
+cone-and-sphere demo, and also added a `TMA-1 monolith
+<https://en.wikipedia.org/wiki/Monolith_(Space_Odyssey)>`_. If you rotate to
+point the circular gaze target on the sphere or TMA-1 it will cause them to
+change; try it! In a browser, you can also click with the mouse. 
+
+A web browser can move in XYZ using cursor or WASD keys. A cell phone doesn't
+have these keys, so it can only do rotation. It would be nice to add a virtual
+WASD controller to the scene.
+
+I used to be able to rotate the phone and see the view change, but now it
+doesn't do that on my Android with Brave -- drag on the screen to change the
+view. I think this has to do with adding the `mouse-cursor` or `rayCaster` but I
+don't know. I need to read more and experiment to understand the interactions of
+virtual cursors. 
+
+On my phone, when I first enter the site, there's a "VR" button in the lower
+right corner that allows me to enter VR mode. When I hit it, I get a split
+screen, and rotation does rotate around the scene; I should get a `Google
+Cardboard <https://www.amazon.com/s?k=google+cardboard>`_ or other VR phone
+frame to play with this.
+
 Sound -- not working
 ====================
 
 I tried to follow the docs on `Adding Audio
 <https://aframe.io/docs/1.7.0/guides/building-a-basic-scene.html#adding-audio>`_.
 I wanted the TMA-1 monolith to emit a sound that got louder as you got closer.
-Unforunately, it didn't work, and this appears to be because browsers block
+Unfortunately, it didn't work, and this appears to be because browsers block
 "autoplay" in the interest of user experience::
 
   The AudioContext was not allowed to start. It must be resumed (or created)
-  after a user ƒgesture on the page. 
+  after a user gesture on the page. 
   https://developer.chrome.com/blog/autoplay/#web_audio
 
 I don't have a work-around yet. 
-  
+
+TODO
+====
+
+* Figure out how to make rotation work with phone just by moving it
+* Add WASD controller for movement on phone
+* Get sound working
