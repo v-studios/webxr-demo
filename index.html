@@ -117,6 +117,25 @@
                  animation__click="startEvents: click; property: rotation; from: 0 30 0; to: 0 270 0; dir: alternate; dur: 1000">
           </a-box>
 
+          <script>
+               // Unlock audio context
+               // Add event: keyboard WASD keys
+               document.addEventListener('keydown', async (e) => {
+                    if (['w', 'a', 's', 'd'].includes(e.key.toLowerCase())) {
+                         const ctx = AFRAME.scenes[0].audioListener.context;
+                         if (ctx.state === "suspended") {
+                              await ctx.resume();
+                         }
+                    }
+               });
+               // Add event: mouse click or rotate screen
+               document.addEventListener('click', async () => {
+                    const ctx = AFRAME.scenes[0].audioListener.context;
+                    if (ctx.state === "suspended") {
+                              await ctx.resume();
+                    }
+               });
+          </script>
      </a-scene>
 
 
