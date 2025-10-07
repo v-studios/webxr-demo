@@ -2,9 +2,26 @@
 
 <head>
      <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+     <style>
+          #overlay {
+               position: fixed;
+               inset: 0;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               background: rgba(0, 0, 0, 0.8);
+               color: #fff;
+               font-family: sans-serif;
+               font-size: 2em;
+               z-index: 9999;
+               cursor: pointer;
+          }
+     </style>
 </head>
 
 <body>
+     <!-- Overlay screen -->
+     <div id="overlay">Press any key to Start!</div>
      <a-scene>
 
           <a-assets>
@@ -118,23 +135,21 @@
           </a-box>
 
           <script>
-               // Unlock audio context
-               // Add event: keyboard WASD keys
-               document.addEventListener('keydown', async (e) => {
-                    if (['w', 'a', 's', 'd'].includes(e.key.toLowerCase())) {
-                         const ctx = AFRAME.scenes[0].audioListener.context;
-                         if (ctx.state === "suspended") {
-                              await ctx.resume();
-                         }
-                    }
-               });
-               // Add event: mouse click or rotate screen
-               document.addEventListener('click', async () => {
+               async function startOverlay(e) {
+                    // Unlock audio context
                     const ctx = AFRAME.scenes[0].audioListener.context;
                     if (ctx.state === "suspended") {
-                              await ctx.resume();
+                         await ctx.resume();
                     }
-               });
+
+                    // Hide overlay
+                    overlay.style.display = "none";
+               }
+
+               // Event listeners to unlock audio context and hide overlay
+               const overlay = document.getElementById("overlay");
+               overlay.addEventListener("click", startOverlay);
+               window.addEventListener("keydown", startOverlay, { once: true });
           </script>
      </a-scene>
 
